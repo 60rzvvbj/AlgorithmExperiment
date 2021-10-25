@@ -1,3 +1,5 @@
+// 这个是平时做leetcode的时候用的，不用管它
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
