@@ -122,7 +122,7 @@ public class ConsoleCanvas {
         for (ColorChar[] aChar : chars) {
             for (ColorChar colorChar : aChar) {
                 if (colorChar.getValue() == lineFill) {
-                    new ColorChar('.', colorChar.getColor()).show();
+                    new ColorChar('█', colorChar.getColor()).show();
                 } else {
                     colorChar.show();
                 }
@@ -131,7 +131,7 @@ public class ConsoleCanvas {
         }
     }
 
-    public void displayC() {
+    public void displayCompress() {
         for (int i = 1; i < chars.length; i += 2) {
             for (int j = 0; j < chars[i].length; j++) {
                 ColorChar cc;
@@ -152,13 +152,13 @@ public class ConsoleCanvas {
                 } else {
                     if (chars[i][j].getValue() == lineFill) {
                         if (chars[i - 1][j].getValue() == lineFill) {
-                            value = ':';
+                            value = '█';
                         } else {
-                            value = '.';
+                            value = '▄';
                         }
                     } else {
                         if (chars[i - 1][j].getValue() == lineFill) {
-                            value = '\'';
+                            value = '▀';
                         } else {
                             value = ' ';
                         }
@@ -172,8 +172,29 @@ public class ConsoleCanvas {
         }
     }
 
+    public void displayStretch() {
+        for (ColorChar[] aChar : chars) {
+            for (ColorChar colorChar : aChar) {
+                if (colorChar.getValue() == lineFill) {
+                    ColorChar cc = new ColorChar('█', colorChar.getColor());
+                    cc.show();
+                    cc.show();
+                } else {
+                    colorChar.show();
+                    DEFAULT_CHAR.show();
+                }
+            }
+            System.out.println();
+        }
+    }
+
     private boolean specialChar(char ch) {
         return ch != lineFill && ch != DEFAULT_CHAR.getValue();
+    }
+
+    // 判断字符是否为中文
+    private boolean isChineseCharacter(char c) {
+        return c >= 0x4e00 && c <= 0x9fa5;
     }
 
     public static void main(String[] args) {
@@ -188,6 +209,8 @@ public class ConsoleCanvas {
         cc.drawLine(33, 40, 13, 40);
         cc.setColor(ConsoleColor.WHITE);
         cc.writeText(5, 30, "console canvas");
-        cc.displayC();
+        cc.displayCompress();
+        cc.display();
+        cc.displayStretch();
     }
 }

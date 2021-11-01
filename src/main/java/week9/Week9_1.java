@@ -1,6 +1,5 @@
 package week9;
 
-import util.consoleUtil.ColorChar;
 import util.consoleUtil.ConsoleCanvas;
 import util.consoleUtil.ConsoleColor;
 
@@ -134,7 +133,7 @@ class CircuitWiring {
         }
 
         // 压缩显示
-        cc.displayC();
+        cc.displayCompress();
     }
 
     // 获取π(x)
