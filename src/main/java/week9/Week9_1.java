@@ -2,6 +2,7 @@ package week9;
 
 import util.consoleUtil.ColorChar;
 import util.consoleUtil.ConsoleCanvas;
+import util.consoleUtil.ConsoleColor;
 
 public class Week9_1 {
     public static void main(String[] args) {
@@ -109,14 +110,14 @@ class CircuitWiring {
         ConsoleCanvas cc = new ConsoleCanvas((len - 1) * canvasItemWidth + (len + 1 + "").length(), canvasHeight);
 
         // 绘制接线柱(红色)
-        cc.setColor(ColorChar.RED);
+        cc.setColor(ConsoleColor.RED);
         for (int i = 0; i < len; i++) {
             cc.writeText(1, i * canvasItemWidth, "" + (i + 1));
             cc.writeText(canvasHeight - 2, i * canvasItemWidth, "" + (i + 1));
         }
 
         // 绘制非布线线条(虚线, 灰色)
-        cc.setColor(ColorChar.GREY);
+        cc.setColor(ConsoleColor.GREY);
         cc.setDottedInterval(2);
         for (int i = 0; i < len; i++) {
             int index1 = i;
@@ -125,7 +126,7 @@ class CircuitWiring {
         }
 
         // 绘制布线线条(实线，黄色)
-        cc.setColor(ColorChar.YELLOW);
+        cc.setColor(ConsoleColor.YELLOW);
         for (int k : light) {
             int index1 = k - 1;
             int index2 = getPIx(k) - 1;

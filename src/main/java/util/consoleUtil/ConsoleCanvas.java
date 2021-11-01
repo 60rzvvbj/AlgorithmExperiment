@@ -3,9 +3,9 @@ package util.consoleUtil;
 import java.util.Arrays;
 
 public class ConsoleCanvas {
-    private final ColorChar DEFAULT_CHAR = new ColorChar(' ', ColorChar.DEFAULT);
+    private final ColorChar DEFAULT_CHAR = new ColorChar(' ', ConsoleColor.DEFAULT);
     private ColorChar[][] chars;
-    private String nowColor = ColorChar.DEFAULT;
+    private ConsoleColor nowColor = ConsoleColor.DEFAULT;
     private final char lineFill = '\0';
     private int dottedInterval = 2;
     private boolean dottedFlag = false;
@@ -20,7 +20,7 @@ public class ConsoleCanvas {
         }
     }
 
-    public void setColor(String color) {
+    public void setColor(ConsoleColor color) {
         this.nowColor = color;
     }
 
@@ -135,7 +135,7 @@ public class ConsoleCanvas {
         for (int i = 1; i < chars.length; i += 2) {
             for (int j = 0; j < chars[i].length; j++) {
                 ColorChar cc;
-                String color;
+                ConsoleColor color;
                 if (chars[i][j].getColor() != DEFAULT_CHAR.getColor()) {
                     color = chars[i][j].getColor();
                 } else if (chars[i - 1][j].getColor() != DEFAULT_CHAR.getColor()) {
@@ -178,15 +178,15 @@ public class ConsoleCanvas {
 
     public static void main(String[] args) {
         ConsoleCanvas cc = new ConsoleCanvas(100, 40);
-        cc.setColor(ColorChar.RED);
+        cc.setColor(ConsoleColor.RED);
         cc.drawLine(1, 2, 8, 21);
-        cc.setColor(ColorChar.PURPLE);
+        cc.setColor(ConsoleColor.PURPLE);
         cc.drawLine(39, 0, 0, 99);
-        cc.setColor(ColorChar.YELLOW);
+        cc.setColor(ConsoleColor.YELLOW);
         cc.drawLine(10, 90, 10, 50);
-        cc.setColor(ColorChar.BLUE);
+        cc.setColor(ConsoleColor.BLUE);
         cc.drawLine(33, 40, 13, 40);
-        cc.setColor(ColorChar.WHITE);
+        cc.setColor(ConsoleColor.WHITE);
         cc.writeText(5, 30, "console canvas");
         cc.displayC();
     }
