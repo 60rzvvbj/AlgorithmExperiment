@@ -5,6 +5,8 @@ import java.util.Arrays;
 public class ConsoleCanvas {
     private final ColorChar DEFAULT_CHAR = new ColorChar(' ', ConsoleColor.DEFAULT);
     private ColorChar[][] chars;
+    private int[][] layer;
+    private int nowLayer = 0;
     private ConsoleColor nowColor = ConsoleColor.DEFAULT;
     private final char lineFill = '\0';
     private int dottedInterval = 2;
@@ -13,9 +15,10 @@ public class ConsoleCanvas {
 
     public ConsoleCanvas(int width, int height) {
         chars = new ColorChar[height][width];
+        layer = new int[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                chars[i][j] = DEFAULT_CHAR;
+                setChar(i, j, DEFAULT_CHAR);
             }
         }
     }
@@ -33,6 +36,7 @@ public class ConsoleCanvas {
     }
 
     public void drawLine(int x1, int y1, int x2, int y2, String type) {
+        nowLayer++;
         if (type.equals("dotted")) {
             dottedFlag = true;
             dottedStatus = 0;
@@ -93,23 +97,44 @@ public class ConsoleCanvas {
     private void setLineDot(int x, int y) {
         if (dottedFlag) {
             if (dottedStatus == 0) {
-                chars[x][y] = new ColorChar(lineFill, nowColor);
+                setChar(x, y, new ColorChar(lineFill, nowColor));
             }
             dottedStatus = (dottedStatus + 1) % dottedInterval;
         } else {
-            chars[x][y] = new ColorChar(lineFill, nowColor);
+            setChar(x, y, new ColorChar(lineFill, nowColor));
         }
     }
 
-    public void writeChar(int x, int y, char ch) {
-        chars[x][y] = new ColorChar(ch, nowColor);
+    public void drawRectangle(int x1, int y1, int x2, int y2) {
+        nowLayer++;
+        int t;
+        if (x1 > x2) {
+            t = x1;
+            x1 = x2;
+            x2 = t;
+        }
+        if (y1 > y2) {
+            t = y1;
+            y1 = y2;
+            y2 = t;
+        }
+        for (int i = x1; i <= x2; i++) {
+           for (int j = y1; j <= y2; j++) {
+               setChar(i, j, new ColorChar(lineFill, nowColor));
+           }
+        }
     }
 
     public void writeText(int x, int y, String str) {
+        nowLayer++;
         char[] chArr = str.toCharArray();
         for (int i = 0; i < chArr.length; i++) {
             writeChar(x, y + i, chArr[i]);
         }
+    }
+
+    private void writeChar(int x, int y, char ch) {
+        chars[x][y] = new ColorChar(ch, nowColor);
     }
 
     public void clear() {
@@ -136,16 +161,26 @@ public class ConsoleCanvas {
             for (int j = 0; j < chars[i].length; j++) {
                 ColorChar cc;
                 ConsoleColor color;
-                if (chars[i][j].getColor() != DEFAULT_CHAR.getColor()) {
-                    color = chars[i][j].getColor();
-                } else if (chars[i - 1][j].getColor() != DEFAULT_CHAR.getColor()) {
-                    color = chars[i - 1][j].getColor();
+                if (layer[i][j] == layer[i - 1][j]) {
+                    if (chars[i][j].getColor() != DEFAULT_CHAR.getColor()) {
+                        color = chars[i][j].getColor();
+                    } else if (chars[i - 1][j].getColor() != DEFAULT_CHAR.getColor()) {
+                        color = chars[i - 1][j].getColor();
+                    } else {
+                        color = DEFAULT_CHAR.getColor();
+                    }
                 } else {
-                    color = DEFAULT_CHAR.getColor();
+                    color = layer[i][j] > layer[i - 1][j] ? chars[i][j].getColor() : chars[i - 1][j].getColor();
                 }
 
                 char value;
-                if (specialChar(chars[i][j].getValue())) {
+                if (specialChar(chars[i][j].getValue()) && specialChar(chars[i - 1][j].getValue())) {
+                    if (layer[i][j] == layer[i - 1][j]) {
+                        value = chars[i][j].getValue();
+                    } else {
+                        value = layer[i][j] > layer[i - 1][j] ? chars[i][j].getValue() : chars[i - 1][j].getValue();
+                    }
+                } else if (specialChar(chars[i][j].getValue())) {
                     value = chars[i][j].getValue();
                 } else if (specialChar(chars[i - 1][j].getValue())) {
                     value = chars[i - 1][j].getValue();
@@ -188,6 +223,11 @@ public class ConsoleCanvas {
         }
     }
 
+    private void setChar(int x, int y, ColorChar ch) {
+        chars[x][y] = ch;
+        layer[x][y] = nowLayer;
+    }
+
     private boolean specialChar(char ch) {
         return ch != lineFill && ch != DEFAULT_CHAR.getValue();
     }
@@ -201,16 +241,18 @@ public class ConsoleCanvas {
         ConsoleCanvas cc = new ConsoleCanvas(100, 40);
         cc.setColor(ConsoleColor.RED);
         cc.drawLine(1, 2, 8, 21);
-        cc.setColor(ConsoleColor.PURPLE);
-        cc.drawLine(39, 0, 0, 99);
         cc.setColor(ConsoleColor.YELLOW);
         cc.drawLine(10, 90, 10, 50);
-        cc.setColor(ConsoleColor.BLUE);
-        cc.drawLine(33, 40, 13, 40);
         cc.setColor(ConsoleColor.WHITE);
         cc.writeText(5, 30, "console canvas");
+        cc.setColor(ConsoleColor.GREEN);
+        cc.drawRectangle(28, 3, 35, 60);
+        cc.setColor(ConsoleColor.SKYBLUE);
+        cc.drawRectangle(32, 56, 5, 64);
+        cc.setColor(ConsoleColor.PURPLE);
+        cc.drawLine(39, 0, 0, 99);
+        cc.setColor(ConsoleColor.BLUE);
+        cc.drawLine(33, 40, 13, 40);
         cc.displayCompress();
-        cc.display();
-        cc.displayStretch();
     }
 }
