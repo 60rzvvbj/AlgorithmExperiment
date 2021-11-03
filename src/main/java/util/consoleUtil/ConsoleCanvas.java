@@ -143,6 +143,26 @@ public class ConsoleCanvas {
         }
     }
 
+    public void clear(int x1, int y1, int x2, int y2) {
+        nowLayer++;
+        int t;
+        if (x1 > x2) {
+            t = x1;
+            x1 = x2;
+            x2 = t;
+        }
+        if (y1 > y2) {
+            t = y1;
+            y1 = y2;
+            y2 = t;
+        }
+        for (int i = x1; i <= x2; i++) {
+            for (int j = y1; j <= y2; j++) {
+                setChar(i, j, DEFAULT_CHAR);
+            }
+        }
+    }
+
     public void display() {
         for (ColorChar[] aChar : chars) {
             for (ColorChar colorChar : aChar) {

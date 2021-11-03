@@ -117,7 +117,7 @@ class CircuitWiring {
 
         // 绘制非布线线条(虚线, 灰色)
         cc.setColor(ConsoleColor.GREY);
-        cc.setDottedInterval(2);
+        cc.setDottedInterval(3);
         for (int i = 0; i < len; i++) {
             int index1 = i;
             int index2 = getPIx(i + 1) - 1;
