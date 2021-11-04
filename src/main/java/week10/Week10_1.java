@@ -15,6 +15,7 @@ public class Week10_1 {
     }
 }
 
+// 背包问题
 class KnapsackProblem {
     private int len;
     private int[] weight;
@@ -22,6 +23,7 @@ class KnapsackProblem {
     private int capacity;
     private int[][] dp;
 
+    // 运行
     public int run(int[] weight, int[] value, int capacity) {
 
         // 检测输入
@@ -34,6 +36,7 @@ class KnapsackProblem {
         this.capacity = capacity;
         this.dp = new int[len + 1][capacity + 1];
 
+        // 计算
         for (int i = 0; i <= capacity; i++) {
             dp[0][i] = 0;
         }
@@ -48,7 +51,15 @@ class KnapsackProblem {
         return dp[len][capacity];
     }
 
+    // 显示结果
     public void display() {
+
+        // 如果没调用过run则抛出异常
+        if (weight == null || value == null) {
+            throw new RuntimeException("Please call the run method first");
+        }
+
+        // 找到选择了哪些物品
         int[] select = new int[len];
         int selectIndex = 0;
         int h = len;
@@ -61,6 +72,7 @@ class KnapsackProblem {
             h--;
         }
 
+        // 显示表格
         int sumW = 0;
         int sumV = 0;
         System.out.println("\n选择的物品为：\n");
@@ -72,6 +84,7 @@ class KnapsackProblem {
         }
         System.out.println("总\t" + sumW + "\t" + sumV);
 
+        // 使用控制台画布工具显示图像
         System.out.println("\n如图所示：\n");
 
         ConsoleCanvas cc = new ConsoleCanvas(capacity + 3, capacity + 2);
@@ -111,6 +124,7 @@ class KnapsackProblem {
         cc.display();
     }
 
+    // 调试用
     private void debug() {
         System.out.print("\t");
         for (int i = 0; i <= capacity; i++) {
