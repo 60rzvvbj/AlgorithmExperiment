@@ -126,10 +126,20 @@ public class ConsoleCanvas {
     }
 
     public void writeText(int x, int y, String str) {
+        writeText(x, y, str, 0);
+    }
+
+    public void writeText(int x, int y, String str, int type) {
         nowLayer++;
         char[] chArr = str.toCharArray();
-        for (int i = 0; i < chArr.length; i++) {
-            writeChar(x, y + i, chArr[i]);
+        if (type == 0) {
+            for (int i = 0; i < chArr.length; i++) {
+                writeChar(x, y + i, chArr[i]);
+            }
+        } else if (type == 1) {
+            for (int i = 0; i < chArr.length; i++) {
+                writeChar(x + i, y, chArr[i]);
+            }
         }
     }
 

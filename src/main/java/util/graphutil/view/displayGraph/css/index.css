@@ -1,0 +1,359 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgb(76, 76, 76);
+}
+
+@keyframes submitTips {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5, 0.5);
+    }
+
+    60% {
+        transform: translate(-50%, -50%) scale(1.05, 1.05);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1, 1);
+    }
+}
+
+.submitTips {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 120;
+    width: 450px;
+    height: 270px;
+    border-radius: 12px;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+    animation-name: submitTips;
+    animation-duration: .3s;
+}
+
+.submitTips .photo {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    background-image: url(../img/submitTrue.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transform: translate(-50%, 0);
+}
+
+.submitTips .tipsText {
+    position: absolute;
+    top: 135px;
+    left: 0px;
+    width: 100%;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    color: #555;
+}
+
+.submitTips .yes {
+    position: absolute;
+    top: 205px;
+    left: 50%;
+    width: 86px;
+    height: 36px;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 36px;
+    text-align: center;
+    color: #fff;
+    background-color: #3085d6;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+    transition: background-color .5s;
+}
+
+.submitTips .yes:hover {
+    background-color: #0957a0;
+}
+
+.main {
+    /* display: none; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    width: 360px;
+    height: 80px;
+    padding: 8px;
+    border-radius: 40px;
+    box-sizing: border-box;
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: transform .3s;
+}
+
+/* 
+.main form {
+    position: relative;
+    width: 100%;
+    height: 100%;
+} */
+
+.main input {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.main .selectBox {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 101;
+    width: 230px;
+    height: 100%;
+    border-radius: 40px;
+    box-sizing: border-box;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 80px;
+    text-indent: 3em;
+    background-color: #fff;
+    pointer-events: none;
+    transition: width .3s, padding-right .3s;
+}
+
+.main .select {
+    width: 230px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 80px;
+    text-indent: 2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.main .selectBox span {
+    position: absolute;
+    left: -36px;
+    height: 100%;
+    line-height: 76px;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.main .submit {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 108px;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 60px;
+    text-align: center;
+    background-color: #f1f1f1;
+    transform: translate(0, -50%);
+    transition: background-color .5s;
+    cursor: pointer;
+}
+
+.main .submit:hover {
+    color: #fff;
+    background-color: rgb(73 203 142);
+}
+
+.main .submit::after {
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    width: 126px;
+    height: 80px;
+    opacity: 0;
+    transform: translate(0, -50%);
+    content: '';
+    cursor: pointer;
+}
+
+.view {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.view .nowNodeMessage {
+    position: absolute;
+    top: 0px;
+    right: -160px;
+    z-index: 30;
+    width: 160px;
+    height: 100%;
+    background-color: rgba(49, 49, 49, 0.8);
+    transition: right .8s;
+}
+
+.view p {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    color: #eee;
+}
+
+.view .nowNodeMessage .node {
+    position: relative;
+    left: 50%;
+    margin-bottom: 20px;
+    transform: translate(-50%, 0);
+}
+
+.view .nowNodeMessage ul {
+    height: 540px;
+    overflow-y: scroll;
+}
+
+.view ul::-webkit-scrollbar {
+    display: none;
+}
+
+.view .routeBox {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 30;
+    width: 240px;
+    height: 100%;
+    background-color: rgba(49, 49, 49, 0.8);
+}
+
+.view .routeBox ul {
+    width: 100%;
+    height: 650px;
+    overflow-y: scroll;
+}
+
+.view .routeBox ul li {
+    height: 40px;
+    padding: 0px 20px;
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #d0d0d0;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+
+.view .routeBox ul li:hover {
+    background-color: rgba(200, 200, 200, 0.5);
+}
+
+.view .route {
+    position: absolute;
+    bottom: -120px;
+    left: 50%;
+    z-index: 30;
+    width: 810px;
+    height: 120px;
+    padding: 0px 20px;
+    background-color: rgba(49, 49, 49, 0.8);
+    transform: translate(-50%, 0);
+    transition: bottom .8s;
+}
+
+.view .route ul {
+    overflow-x: scroll;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.view .route ul .node {
+    display: inline-block;
+    position: relative;
+    margin-right: 40px;
+}
+
+.view .route ul .node::after {
+    position: absolute;
+    top: 50%;
+    right: -37px;
+    width: 34px;
+    height: 2px;
+    background-color: #eee;
+    transform: translate(0, -50%);
+    content: '';
+}
+
+.view .route ul .node:last-child {
+    margin-right: 0px;
+}
+
+.view .route ul .node:last-child:after {
+    display: none;
+}
+
+.node {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    background-color: pink;
+    cursor: pointer;
+}
+
+.node::before {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    background-color: rgba(241, 255, 111, 0.5);
+    content: '';
+}
+
+.node:hover::before {
+    display: block;
+}
+
+.nodeHeightLight {
+    box-shadow: 0px 0px 10px rgb(106, 193, 237);
+}
+
+.edge {
+    background-color: rgb(205, 205, 205);
+    z-index: 1;
+}
+
+.edgeHeightLight {
+    background-color: rgb(106, 193, 237);
+    box-shadow: 0px 0px 10px rgb(106, 193, 237);
+    z-index: 1;
+}

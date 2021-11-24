@@ -86,10 +86,10 @@ public class TreeUtil {
             setChar(chart, node.getData(), nodeX.get(node), nodeY.get(node));
             if (node.getLeft() != null && node.getRight() != null) {
                 if (!node.getLeft().getData().equals("\0")) {
-                    chart[(nodeY.get(node) + nodeY.get(node.getLeft())) / 2][(nodeX.get(node) + nodeX.get(node.getLeft())) / 2] = '/';
+                    chart[(nodeY.get(node) + nodeY.get(node.getLeft())) / 2][(nodeX.get(node) + nodeX.get(node.getLeft())) / 2 + 1] = '/';
                 }
                 if (!node.getRight().getData().equals("\0")) {
-                    chart[(nodeY.get(node) + nodeY.get(node.getRight())) / 2][(nodeX.get(node) + nodeX.get(node.getRight())) / 2 + 1] = '\\';
+                    chart[(nodeY.get(node) + nodeY.get(node.getRight())) / 2][(nodeX.get(node) + nodeX.get(node.getRight())) / 2 + 2] = '\\';
                 }
             }
         }
