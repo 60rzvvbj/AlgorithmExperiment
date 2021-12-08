@@ -1,5 +1,6 @@
 package week11;
 
+import util.StringUtil;
 import util.consoleUtil.ConsoleCanvas;
 import util.consoleUtil.ConsoleColor;
 
@@ -82,7 +83,7 @@ class ActivityArrangement {
         System.out.println("\n安排的活动为：");
         for (int i = 0; i < len; i++) {
             if (res[i]) {
-                System.out.println(getTabString(new String[]{i + 1 + ""}, numLen) + " : " + getTabString(new String[]{activities[i].getStart() + ""}, colNumLen) + " -> " + getTabString(new String[]{activities[i].getEnd() + ""}, colNumLen));
+                System.out.println(StringUtil.getTabString(new String[]{i + 1 + ""}, numLen) + " : " + StringUtil.getTabString(new String[]{activities[i].getStart() + ""}, colNumLen) + " -> " + StringUtil.getTabString(new String[]{activities[i].getEnd() + ""}, colNumLen));
             }
         }
 
@@ -92,13 +93,13 @@ class ActivityArrangement {
         cc.setColor(ConsoleColor.WHITE);
 
         // 网格线
-        String line = getCircleString("▀", width);
+        String line = StringUtil.getCircleString("▀", width);
         cc.writeText(0, 0, line);
         cc.writeText(colNumLen + 1, 0, line);
         cc.writeText(height - 1, 0, line);
 
         // 表头
-        String title = getTabString(new String[]{"N", "S", "E"}, numLen + 1);
+        String title = StringUtil.getTabString(new String[]{"N", "S", "E"}, numLen + 1);
         cc.writeText(1, 0, title);
         for (int i = 0; i < maxTime; i++) {
             cc.writeText(1, widthLeft + i * 2, i + 1 + "", 1);
@@ -107,8 +108,8 @@ class ActivityArrangement {
         // 内容
         for (int i = 0; i < len; i++) {
             cc.setColor(res[i] ? ConsoleColor.YELLOW : ConsoleColor.GREY);
-            cc.writeText(i + colNumLen + 2, 0, getTabString(new String[]{"" + (i + 1), "" + activities[i].getStart(), "" + activities[i].getEnd()}, numLen + 1));
-            cc.writeText(i + colNumLen + 2, numLen * 3 + 2 + activities[i].getStart() * 2, getCircleString("█", (activities[i].getEnd() - activities[i].getStart()) * 2));
+            cc.writeText(i + colNumLen + 2, 0, StringUtil.getTabString(new String[]{"" + (i + 1), "" + activities[i].getStart(), "" + activities[i].getEnd()}, numLen + 1));
+            cc.writeText(i + colNumLen + 2, numLen * 3 + 2 + activities[i].getStart() * 2, StringUtil.getCircleString("█", (activities[i].getEnd() - activities[i].getStart()) * 2));
             if (res[i]) {
                 for (int j = activities[i].getStart(); j < activities[i].getEnd(); j++) {
                     cc.writeText(1, widthLeft + (j - 1) * 2, j + "", 1);
@@ -118,25 +119,6 @@ class ActivityArrangement {
 
         // 显示
         cc.display();
-    }
-
-    private String getTabString(String[] str, int interval) {
-        String res = "";
-        for (int i = 0; i < str.length; i++) {
-            res += str[i];
-            for (int j = str[i].length(); j < interval; j++) {
-                res += " ";
-            }
-        }
-        return res;
-    }
-
-    private String getCircleString(String str, int count) {
-        String res = "";
-        for (int i = 0; i < count; i++) {
-            res += str;
-        }
-        return res;
     }
 
     // 调试

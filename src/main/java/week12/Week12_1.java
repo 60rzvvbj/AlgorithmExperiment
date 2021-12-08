@@ -18,8 +18,9 @@ public class Week12_1 {
                 {5, 6, 10}
         };
         Map<Integer, Integer> res = new Dijkstra().run(node, edge, 1);
+        System.out.println("到各点的距离为：");
         for (int j : node) {
-            System.out.println(j + " -> " + res.get(j));
+            System.out.println(j + " : " + res.get(j));
         }
     }
 }

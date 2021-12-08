@@ -20,7 +20,7 @@ public class Week12_2 {
         };
         Prim prim = new Prim();
         UndirectedEdge[] res = prim.run(nodes, edges);
-        System.out.println("剩余边为：");
+        System.out.println("最小生成树中的边为：");
         for (UndirectedEdge edge : res) {
             System.out.println(edge.getNode()[0] + " --- " + edge.getLen() + " --- " + edge.getNode()[1]);
         }
